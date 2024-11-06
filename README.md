@@ -8,6 +8,7 @@ Here are some useful commands to manage the Hadoop cluster:
 
 | Command                                      | Usage                                                 |
 |----------------------------------------------|-------------------------------------------------------|
+| `hadoop namenode -format`                    | Formats the Hadoop NameNode for the first-time setup  |
 | `start-all.sh`                               | Starts all the daemons of the Hadoop cluster          |
 | `stop-all.sh`                                | Stops all the daemons of the Hadoop cluster           |
 | `./mr-jobhistory-daemon.sh start historyserver` | Starts the job application history server           |
@@ -28,10 +29,10 @@ To run the pipeline:
 
 To run this project, ensure the following are installed and configured on your system:
 
-- **Hadoop**: For distributed storage and data processing.
+- **Hadoop(minimum version 2.8 or 3.x)**: For distributed storage and data processing.
 - **Maven**: For project build and dependency management.
 - **Spring Boot**: To create java application.
-- **JDK**: Java Development Kit required for compiling and running Java code.
+- **JDK(minimum version 8)**: Java Development Kit required for compiling and running Java code.
 - **Tomcat**: For deploying the Spring Boot application as a web server.
 - **Thymeleaf**: A template engine integrated with Spring Boot for dynamic HTML generation.
 
