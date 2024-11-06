@@ -74,7 +74,7 @@ public class FileUploadController {
         List<String> fileNames = new ArrayList<>();
         Configuration configuration = new Configuration();
         configuration.set("fs.defaultFS", "hdfs://localhost:9000"); // Adjust the HDFS URI as needed
-        configuration.setBoolean("fs.automatic.shutdown.hooks", false); // Sneha
+        configuration.setBoolean("fs.automatic.shutdown.hooks", false); 
 
         FileSystem fs = FileSystem.get(configuration);
         Path path = new Path("/DataTransformer/Output_Files/");
