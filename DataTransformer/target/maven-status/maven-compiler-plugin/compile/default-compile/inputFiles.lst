@@ -1,0 +1,7 @@
+/home/dell/Downloads/DataTransformer/src/main/java/DataTransformer/DataTransformer/service/CSVToJsonMapper.java
+/home/dell/Downloads/DataTransformer/src/main/java/DataTransformer/DataTransformer/service/CSVToJsonReducer.java
+/home/dell/Downloads/DataTransformer/src/main/java/DataTransformer/DataTransformer/controller/FileUploadController.java
+/home/dell/Downloads/DataTransformer/src/main/java/DataTransformer/DataTransformer/service/CSVToJSONJob.java
+/home/dell/Downloads/DataTransformer/src/main/java/DataTransformer/DataTransformer/service/CopyFileToHDFS.java
+/home/dell/Downloads/DataTransformer/src/main/java/DataTransformer/DataTransformer/WebConfig.java
+/home/dell/Downloads/DataTransformer/src/main/java/DataTransformer/DataTransformer/DataTransformerApplication.java

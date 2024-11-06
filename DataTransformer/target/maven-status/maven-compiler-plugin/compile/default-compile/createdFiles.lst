@@ -1,0 +1,8 @@
+DataTransformer/DataTransformer/DataTransformerApplication.class
+DataTransformer/DataTransformer/service/CSVToJsonMapper.class
+DataTransformer/DataTransformer/controller/FileUploadController.class
+DataTransformer/DataTransformer/service/CSVToJsonReducer.class
+DataTransformer/DataTransformer/service/CSVToJSONJob.class
+DataTransformer/DataTransformer/service/CopyFileToHDFS.class
+DataTransformer/DataTransformer/controller/FileUploadController$WebConfig.class
+DataTransformer/DataTransformer/WebConfig.class

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>File Upload to HDFS</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: #FFFFFF;
+            font-family: "Source Sans Pro";
+        }
+
+        .banner {                     
+            background-image: linear-gradient(90deg, #43C6AC, #F8FFAE);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-weight: bold;
+            font-size: 35px;
+        }
+
+        #spinner {
+            display: none;
+            border: 6px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 6px solid #3498db;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-top: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .d-flex {
+            display: flex; /* Enables flexbox */
+            align-items: center; /* Center vertically */
+        }
+
+        .form-control {
+            margin-right: 10px; /* Space between input and button */
+            flex-grow: 1; /* Allow input to grow to fill space */
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            padding: 16px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: row; /* Arrange items horizontally */
+            align-items: center;
+            padding: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .text {
+            flex-grow: 1;
+            font-size: 16px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-left: 16px; /* Adjusted to give spacing between icon and text */
+        }
+        .text:hover {
+            background-color: #f0f0f0;
+            overflow: visible;
+            white-space: normal;
+            z-index: 1; /* Ensure text appears above other elements */
+        }
+
+        .icon,
+        .icon-button {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #FFFFFF;
+        }
+
+        .icon img,
+        .icon-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background-color: #FFFFFF;
+        }
+
+        .icon-button:hover {
+            transform: scale(1.1);
+            background-color: #d0d0d0;
+        }
+
+        .upload-button {
+            background-color: #43C6AC;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        DataTransformer
+    </div>
+    <div class="container mt-5">
+        <h3>Convert the CSV to JSON</h3>
+        <form method="post" th:action="@{/uploadFile}" onsubmit="showSpinner();" class="mb-4">
+            <div class="form-group d-flex">
+                <input type="text" name="filePath" class="form-control" placeholder="Enter file path" required />
+                <button type="submit" class="upload-button">Upload</button>
+            </div>
+        </form>
+
+        <div id="spinner"></div>
+
+        <h4>Transformed Files:</h4>
+        <div class="grid-container" id="fileGrid">
+            <!-- Files will be populated here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        function showSpinner() {
+            document.getElementById('spinner').style.display = 'block';
+        }
+
+        async function checkJobStatus(jobId) {
+            try {
+                const response = await fetch(`/jobStatus/${jobId}`);
+                const status = await response.text();
+                if (status === 'COMPLETED') {
+                    alert("Job completed successfully!");
+                    document.getElementById('spinner').style.display = 'none';
+                    loadFiles(); // Refresh the file list
+                } else if (status === 'FAILED') {
+                    alert("Job failed.");
+                    document.getElementById('spinner').style.display = 'none';
+                } else {
+                    setTimeout(() => checkJobStatus(jobId), 2000); // Check again after 2 seconds
+                }
+            } catch (error) {
+                console.error("Error checking job status:", error);
+            }
+        }
+
+        function loadFiles() {
+            fetch('/listFiles')
+                .then(response => response.json())
+                .then(fileNames => {
+                    const fileGrid = document.getElementById('fileGrid');
+                    fileGrid.innerHTML = ''; // Clear previous file list
+                    fileNames.forEach(fileName => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <div class="icon">
+                                <img src="/file_icon.png" alt="File Icon" />
+                            </div>
+                            <div class="text">${fileName}</div>
+                            <div class="icon-button" onclick="downloadFile('${fileName}')">
+                                <img src="/download.png" alt="Download Icon" />
+                            </div>
+                        `;
+                        fileGrid.appendChild(card);
+                    });
+                });
+        }
+
+        function downloadFile(fileName) {
+            window.location.href = `/downloadFile/${fileName}`;
+        }
+		
+		window.onload = loadFiles;
+	</script>
+</body>
+</html>
