@@ -1,4 +1,4 @@
-#HadoopNova
+# HadoopNova
 # Data Transformation Pipeline with Hadoop
 
 This project implements a pipeline to transform large datasets between formats, such as CSV and JSON, using Hadoop’s core components, HDFS and MapReduce. The pipeline enables efficient data storage, transformation, and output by distributing data across nodes for fault tolerance and processing transformations in parallel. This solution is particularly useful for fields like healthcare and technology, where flexible data formats support integration, analysis, and API testing. HDFS provides scalability and reliability, making it ideal for handling unstructured data from diverse sources.
