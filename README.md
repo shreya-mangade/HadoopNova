@@ -39,4 +39,4 @@ To run this project, ensure the following are installed and configured on your s
 
 The pipeline is particularly useful for fields with diverse data formats, such as:
 - **Healthcare**: Integrates and analyzes unstructured patient data.
-- **Technology**: Supports flexible data formats for API testing and data transformation.
+- **Technology**: Supports flexible data formats for API simulation and data transformation.
